@@ -19,7 +19,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: echo a string
-        run: echo "Hello, world"
+        run: echo "Hello Genaro, this is a greeting"
 
       # Runs a set of commands using the runners shell
       - name: multi-line script
