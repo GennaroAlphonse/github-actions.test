@@ -25,6 +25,11 @@ jobs:
       - run: npm test -- --coverage
         env:
           CI: true
+      - name: Upload Build Folder
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build
       - name: Build project
         if: github.event_name='push'
         run: npm run build
