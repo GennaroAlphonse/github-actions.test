@@ -3,14 +3,14 @@ const github= require('@actions/github');
 
 try{
   //throw (new Error("some message"));
-  const name= core.getInput('who-to-greet');
+  const name= core.getInput("who-to-greet");
 
   console.log('Hello ${name}');
 
   const time= new Date();
-  core.setOutPut("time",time.toTimeString());
+  core.setOutput("time", time.toTimeString());
 
-  console.log(JSON.stringify(github,null,'/t'));}
+  console.log(JSON.stringify(github,null,"/t"));}
 catch (error){
   core.setFailed(error.message);
 }
