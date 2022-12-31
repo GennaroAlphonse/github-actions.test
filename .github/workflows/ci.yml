@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}      
     steps:
       - uses: action/checkout@v2
       - name: Cache node modules
@@ -44,10 +47,15 @@ jobs:
         if: github.event_name='push'
         run: npm run build
       - name: Deploying to Staging
-        if: github.event_name='push'
+        if: github.event_name='push' && github.ref = 'refs/heads/develop'
         run: npx surge --project ./build --domain silent-apparatus.surge.sh
+      - name: Deploying to Staging
+        if: github.event_name='push' && github.ref = 'refs/heads/master'
+        run: npx surge --project ./build --domain enormous-poison-prod.surge.sh 
+      - name: Upload coverage reports
+        if: github.event_name='push' && github.ref = 'refs/heads/master'
+        run: npx codecov
         env:
-          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         
         
