@@ -1,3 +1,9 @@
+if [true]
+then
+  echo 'error'
+  exit 1
+fi
+
 echo "::debug ::Debug message"
 echo "::warning ::Warning message"
 echo "::error ::Error message"
