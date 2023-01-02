@@ -4,14 +4,27 @@ require_once 'vendor/autoload.php'
   
   Requests::register_autoloader();
 
+echo "::debug ::Sending a request to Slack"\n;
+
 $response= Requests::post(
-  "https://hooks.slack.com/services/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",
+  $_ENV['INPUT_SLACK_WEBHOOK'],
   array(
-    'Content-Type' => 'application/json'
+    "Content-Type' => 'application/json"
   ),
   json_encode(array(
-    'text' => 'Some message'
+  "text" => "*Repository:*\n{$_ENV['GITHUB_REPOSITORY']}",
+  "text" => "*Event:*\n{$_ENV['GITHUB_EVENT_NAME']}",
+  "text" => "*Ref:*\n{$_ENV['GITHUB_REF']}",
+  "text" => "*Sha:*\n{$_ENV['GITHUB_SHA']}",
   ))
 );
 
-var_dump($response);
+echo "::group::Slack response\n";
+echo "::endgroup::\n";
+
+if (!$response->success){
+  echo $response->body;
+  exit(1);
+};
+
+//var_dump($response);
