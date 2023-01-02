@@ -3,11 +3,21 @@ jobs:
   testing-action:
     runs-on: ubuntu-latest
     steps:
-      -uses: actions/checkout@v2
-      -uses: ./.github/actions/hello
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/hello
       id: hello
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        title: Title
+        body: Body
+        assignees: |
+          GennaroAlphonse
+          alialaa
+      run: |
+        echo ${{ steps.issue.outputs.issue }}
       with:
         who-to-greet: "World"
       run: |
         echo "Time: ${{ steps.hello.outputs.time }}"
+        echo $HELLO
   
