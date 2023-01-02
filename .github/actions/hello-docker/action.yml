@@ -1,0 +1,17 @@
+name: Hello World
+author: Genaro
+description: My description
+inputs:
+  who-to-greet:
+    description: A greeting
+    required: true
+    default: Genaro
+outputs: 
+  time:
+    description: "The greeting time"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  entrypoint:
+  args:
+    
